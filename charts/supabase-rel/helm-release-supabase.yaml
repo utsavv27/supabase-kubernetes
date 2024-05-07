@@ -2904,7 +2904,7 @@ spec:
         ingress:
           ## @param studio.ingress.enabled Enable ingress record generation for Supabase
           ##
-          enabled: false
+          enabled: true
           ## @param studio.ingress.pathType Ingress path type
           ##
           pathType: ImplementationSpecific
@@ -3206,16 +3206,16 @@ spec:
         ## @param kong.ingress.tls Enable TLS for Kong Ingress
         ##
         ingress:
-          enabled: true
-          hostname: "supabase.local"
+          enabled: false
+          hostname: ":supabase.local"
           tls: false
         ## @param kong.service.loadBalancerIP Kubernetes service LoadBalancer IP
         ## @param kong.service.type Kubernetes service type
         ## @param kong.service.ports.proxyHttp Kong service port
         ##
         service:
-          loadBalancerIP: ""
-          type: LoadBalancer
+          # loadBalancerIP: ""
+          type: ClusterIP
           ports:
             proxyHttp: 80
         ## @param kong.postgresql.enabled Switch to enable or disable the PostgreSQL helm chart inside the Kong subchart
