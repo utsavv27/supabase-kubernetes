@@ -4,7 +4,7 @@ metadata:
   name: ray-test
   namespace: flux-system
 spec:
-  url: ssh://git@github.com/supabase-community/supabase-kubernetes.git
+  url: ssh://git@github.com/utsavv27/supabase-kubernetes.git
   interval: 5m0s
   ref:
     branch: main
@@ -14,4 +14,4 @@ spec:
     # exclude all
     /*
     # include primary-3 dir
-    !/supabase-kubernetes/charts/supabase-rel/
+    !/supabase-kubernetes/charts/supabase-rel/ 
