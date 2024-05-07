@@ -5,7 +5,7 @@ metadata:
   namespace: flux-system
 spec:
   interval: 5m0s
-  path: ./supabase
+  path: ./supabase-kubernetes/charts/supabase-rel/
   prune: true
   sourceRef:
     kind: GitRepository
