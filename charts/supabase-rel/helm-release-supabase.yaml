@@ -235,7 +235,7 @@ spec:
             ## @param jwt.autoGenerate.networkPolicy.enabled Enable creation of NetworkPolicy resources
             ##
             enabled: true
-            ## @param jwt.autoGenerate.networkPolicy.allowExternal The Policy model to apply
+            ## @param jwt.autoGenerate.networkPolicy.allowExternal The  Policy model to apply
             ## When set to false, only pods with the correct client label will have network access to the ports Mastodon is
             ## listening on. When true, Mastodon will accept connections from any source (with the correct destination port).
             ##
@@ -417,7 +417,7 @@ spec:
         defaultConfig: |
           GOTRUE_API_HOST: "0.0.0.0"
           GOTRUE_API_PORT: {{ .Values.auth.containerPorts.http | quote }}
-          API_EXTERNAL_URL: "http:/{{ include "supabase.auth.fullname" . }}:{{ .Values.auth.service.ports.http }}"
+          API_EXTERNAL_URL: "https:/{{ include "supabase.auth.fullname" . }}:{{ .Values.auth.service.ports.http }}"
           GOTRUE_SITE_URL: {{ include "supabase.studio.publicURL" . | quote }}
           GOTRUE_URI_ALLOW_LIST: "*"
           GOTRUE_DISABLE_SIGNUP: "false"
@@ -2806,7 +2806,7 @@ spec:
           ## NOTE: choose port between <30000-32767>
           ##
           nodePorts:
-            http: ""
+            http: "10.0.14.245"
           ## @param studio.service.clusterIP Supabase studio service Cluster IP
           ## e.g.:
           ## clusterIP: None
@@ -2815,7 +2815,7 @@ spec:
           ## @param studio.service.loadBalancerIP Supabase studio service Load Balancer IP
           ## ref: https://kubernetes.io/docs/concepts/services-networking/service/#type-loadbalancer
           ##
-          loadBalancerIP: ""
+          loadBalancerIP: "10.0.14.245"
           ## @param studio.service.loadBalancerSourceRanges Supabase studio service Load Balancer sources
           ## ref: https://kubernetes.io/docs/tasks/access-application-cluster/configure-cloud-provider-firewall/#restrict-access-for-loadbalancer-service
           ## e.g:
@@ -3206,7 +3206,7 @@ spec:
         ## @param kong.ingress.tls Enable TLS for Kong Ingress
         ##
         ingress:
-          enabled: false
+          enabled: true
           hostname: "supabase.local"
           tls: false
         ## @param kong.service.loadBalancerIP Kubernetes service LoadBalancer IP
@@ -3321,158 +3321,3 @@ spec:
         password: ""
         existingSecret: ""
         existingSecretPasswordKey: ""
-
-    # secret:
-    #   jwt:
-    #     anonKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJhbm9uIiwKICAgICJpc3MiOiAic3VwYWJhc2UtZGVtbyIsCiAgICAiaWF0IjogMTY0MTc2OTIwMCwKICAgICJleHAiOiAxNzk5NTM1NjAwCn0.dc_X5iR_VP_qT0zsiyj_I_OZ2T9FtRU2BBNWN8Bu4GE
-    #     serviceKey: eyJhbGciOiJIUzI1NiIsInR5cCI6IkpXVCJ9.eyAgCiAgICAicm9sZSI6ICJzZXJ2aWNlX3JvbGUiLAogICAgImlzcyI6ICJzdXBhYmFzZS1kZW1vIiwKICAgICJpYXQiOiAxNjQxNzY5MjAwLAogICAgImV4cCI6IDE3OTk1MzU2MDAKfQ.DaYlNEoUrrEn2Ig7tqibS-PHK5vgusbcbo7X36XVt4Q
-    #     secret: your-super-secret-jwt-token-with-at-least-32-characters-long
-    #   smtp:
-    #     username: your-mail@example.com
-    #     password: example123456
-    #   dashboard:
-    #     username: supabase
-    #     password: this_password_is_insecure_and_should_be_updated
-    #   db:
-    #     username: postgres
-    #     password: example123456
-    #     database: postgres
-    #   analytics:
-    #     apiKey: your-super-secret-and-long-logflare-key
-
-    # db:
-    #   enabled: true
-    #   image:
-    #     tag: 15.1.0.147
-    #   livenessProbe:
-    #     exec:
-    #       command:
-    #         - pg_isready
-    #         - -U
-    #         - postgres
-    #     initialDelaySeconds: 3
-    #   persistence:
-    #     enabled: false
-
-    # studio:
-    #   image:
-    #     tag: 20240326-5e5586d
-    #   environment:
-    #     STUDIO_DEFAULT_ORGANIZATION: "My Organization"
-    #     STUDIO_DEFAULT_PROJECT: "My Project"
-    #     SUPABASE_PUBLIC_URL: http://example.com/
-    #     NEXT_PUBLIC_ENABLE_LOGS: "true"
-    #   livenessProbe:
-    #     httpGet:
-    #       path: /api/profile
-    #       port: 3000
-    #     initialDelaySeconds: 3
-
-    # auth:
-    #   image:
-    #     tag: v2.143.0
-    #   environment:
-    #     API_EXTERNAL_URL: http://example.com
-    #     GOTRUE_SITE_URL: http://example.com
-    #     GOTRUE_EXTERNAL_EMAIL_ENABLED: "true"
-    #     GOTRUE_MAILER_AUTOCONFIRM: "true"
-    #     GOTRUE_SMTP_ADMIN_EMAIL: "your-mail@example.com"
-    #     GOTRUE_SMTP_HOST: "smtp.example.com"
-    #     GOTRUE_SMTP_PORT: "587"
-    #     GOTRUE_SMTP_SENDER_NAME: "your-mail@example.com"
-
-    # rest:
-    #   image:
-    #     tag: v12.0.1
-
-    # realtime:
-    #   image:
-    #     tag: v2.27.5
-    #   livenessProbe:
-    #     httpGet:
-    #       path: /
-    #       port: 4000
-    #     initialDelaySeconds: 3
-
-    # meta:
-    #   image:
-    #     tag: v0.80.0
-
-    # storage:
-    #   image:
-    #     tag: v0.46.4
-    #   livenessProbe:
-    #     httpGet:
-    #       path: /status
-    #       port: 5000
-    #     initialDelaySeconds: 3
-    #   persistence:
-    #     enabled: false
-
-    # imgproxy:
-    #   image:
-    #     tag: v3.8.0
-    #   environment:
-    #     IMGPROXY_ENABLE_WEBP_DETECTION: "true"
-    #   livenessProbe:
-    #     exec:
-    #       command:
-    #         - imgproxy
-    #         - health
-    #     initialDelaySeconds: 3
-    #   persistence:
-    #     enabled: false
-
-    # kong:
-    #   image:
-    #     repository: kong
-    #     tag: 2.8.1
-    #   environment:
-    #     KONG_DECLARATIVE_CONFIG: /usr/local/kong/kong.yml
-    #     KONG_LOG_LEVEL: info
-    #   ingress:
-    #     enabled: true
-    #     className: "nginx"
-    #     annotations:
-    #       nginx.ingress.kubernetes.io/rewrite-target: /
-    #     tls: []
-    #       # - secretName: example-ingress-tls
-    #       #   hosts:
-    #       #     - example.com
-    #     hosts:
-    #       - host: example.com
-    #         paths:
-    #           - path: /
-    #             pathType: Prefix
-
-    # analytics:
-    #   image:
-    #     tag: 1.4.0
-    #   livenessProbe:
-    #     httpGet:
-    #       path: /health
-    #       port: 4000
-    #     initialDelaySeconds: 3
-
-    # vector:
-    #   image:
-    #     tag: 0.34.0-alpine
-    #   livenessProbe:
-    #     httpGet:
-    #       path: /health
-    #       port: 9001
-    #     initialDelaySeconds: 3
-    #   ## Vector requires logs from the control plane to function.
-    #   ## This is normally stored in /var/log/pods
-    #   ## Modify these values according to your environment.
-    #   volumeMounts:
-    #     - name: pod-logs
-    #       mountPath: /var/log/pods
-    #   volumes:
-    #     - name: pod-logs
-    #       hostPath:
-    #         path: /var/log/pods
-
-    # functions:
-    #   image:
-    #     tag: v1.41.2
