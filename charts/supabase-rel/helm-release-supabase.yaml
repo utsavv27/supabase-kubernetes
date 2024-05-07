@@ -4,10 +4,11 @@ metadata:
   name: supabase-rel 
   namespace: supabase
 spec:
+  releaseName: my-supabase
   interval: 5m 
   chart:
     spec:
-      releaseName: my-supabase
+      
       chart: supabase
       version: "4.0.5"
       sourceRef:
