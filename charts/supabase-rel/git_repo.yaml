@@ -14,4 +14,4 @@ spec:
     # exclude all
     /*
     # include primary-3 dir
-    !/supabase-kubernetes/charts/supabase-rel/ 
+    !/charts/supabase-rel/ 
